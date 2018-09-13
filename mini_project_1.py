@@ -5,15 +5,29 @@
 #It will then use googles video cloud thing to give a 
 #tag to each image.
 
+
+#Import tweepy libraries need to interface with twitter API 
 import tweepy
-from tweepy import OAuthHandler
- 
-consumer_key = 'YOUR-CONSUMER-KEY'
-consumer_secret = 'YOUR-CONSUMER-SECRET'
-access_token = 'YOUR-ACCESS-TOKEN'
-access_secret = 'YOUR-ACCESS-SECRET'
- 
-auth = OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_secret)
- 
-api = tweepy.API(auth)
+
+#Read in the consumer key, consumer secrete, acces token, 
+#and secret access token from the file twitter_keys.txt
+my_file = open('twitter_keys.txt', 'r')
+my_keys = my_file.read().split('-')
+
+#File is in this order:
+consumer_key = my_keys[0]
+consumer_secret = my_keys[1]
+access_token = my_keys[2]
+access_secret = my_keys[3]
+
+
+
+
+# auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+# auth.set_access_token(access_token, access_token_secret)
+
+# api = tweepy.API(auth)
+
+# public_tweets = api.home_timeline()
+# for tweet in public_tweets:
+#     print tweet.text

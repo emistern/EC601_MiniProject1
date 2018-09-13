@@ -8,26 +8,26 @@
 
 #Import tweepy libraries need to interface with twitter API 
 import tweepy
+from tweepy import OAuthHandler
 
-#Read in the consumer key, consumer secrete, acces token, 
-#and secret access token from the file twitter_keys.txt
-my_file = open('twitter_keys.txt', 'r')
-my_keys = my_file.read().split('-')
+#Import the twitter credentials
+import twitter_credentials
 
-#File is in this order:
-consumer_key = my_keys[0]
-consumer_secret = my_keys[1]
-access_token = my_keys[2]
-access_secret = my_keys[3]
+#Authorize with the twitter keys/tokens
+auth = OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
+auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
+api = tweepy.API(auth)
 
+#Verifies that you can reach twitter
+try:
+    redirect_url = auth.get_authorization_url()
+except tweepy.TweepError:
+    print('Error! Failed to get request token.')
 
-
-
-# auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-# auth.set_access_token(access_token, access_token_secret)
-
-# api = tweepy.API(auth)
+new_tweets = api.user_timeline(screen_name = "FRCTeams",count=200)
+for tweet in new_tweets:
+	print(tweet)
 
 # public_tweets = api.home_timeline()
 # for tweet in public_tweets:
-#     print tweet.text
+#     print(tweet)

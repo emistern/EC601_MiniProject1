@@ -24,10 +24,20 @@ try:
 except tweepy.TweepError:
     print('Error! Failed to get request token.')
 
-new_tweets = api.user_timeline(screen_name = "FRCTeams",count=200)
+
+#Check if username exists
+valid_name = False
+while valid_name == False:
+	username = input("What username would you like to download images from? ")
+	try:
+	    u=api.get_user(username)
+	    print (u.id_str)
+	    print (u.screen_name)
+	    break
+	except Exception:
+	    print("That was not a valid username")
+	    continue
+
+new_tweets = api.user_timeline(screen_name = username,count=200)
 for tweet in new_tweets:
 	print(tweet)
-
-# public_tweets = api.home_timeline()
-# for tweet in public_tweets:
-#     print(tweet)

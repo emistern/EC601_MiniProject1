@@ -13,8 +13,12 @@ from tweepy import OAuthHandler
 #Import the twitter credentials
 import twitter_credentials
 
-#Import wget and OS
-import wget, os
+#Import wget and OS and io
+import wget, os, io
+
+# Imports the Google Cloud client library
+from google.cloud import vision
+from google.cloud.vision import types
 
 
 #Authorize with the twitter keys/tokens
@@ -43,7 +47,7 @@ while valid_name == False:
 	    continue
 
 #Last 200 tweets from the given username
-new_tweets = api.user_timeline(screen_name = username,count=100)
+new_tweets = api.user_timeline(screen_name = username,count=0)
 
 #Move all of the tweets with images to a new list.
 tweets_with_pics = []
@@ -64,9 +68,35 @@ except:
 for pic_url in tweets_with_pics:
 	wget.download(pic_url)
 
+#Return back to the working directory
+os.chdir("..")
+
 #Convert images to video here
 
 #Skip the images to video section for now. 
 #Add the google vision api and checkout labels for each image to start.
+
+# Instantiates a client
+client = vision.ImageAnnotatorClient()
+
+# The name of the image file to annotate
+file_name = os.path.join(
+    os.path.dirname(__file__),
+    './twitter_images/DlJrqiMWsAAcEvX.jpg')
+
+# Loads the image into memory
+with io.open(file_name, 'rb') as image_file:
+    content = image_file.read()
+
+image = types.Image(content=content)
+
+# Performs label detection on the image file
+response = client.label_detection(image=image)
+labels = response.label_annotations
+
+print('Labels:')
+for label in labels:
+    print(label.description)
+
 
 

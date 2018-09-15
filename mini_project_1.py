@@ -16,6 +16,7 @@ import twitter_credentials
 #Import wget and OS
 import wget, os
 
+
 #Authorize with the twitter keys/tokens
 auth = OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
 auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
@@ -42,7 +43,7 @@ while valid_name == False:
 	    continue
 
 #Last 200 tweets from the given username
-new_tweets = api.user_timeline(screen_name = username,count=10)
+new_tweets = api.user_timeline(screen_name = username,count=100)
 
 #Move all of the tweets with images to a new list.
 tweets_with_pics = []
@@ -63,6 +64,9 @@ except:
 for pic_url in tweets_with_pics:
 	wget.download(pic_url)
 
+#Convert images to video here
 
+#Skip the images to video section for now. 
+#Add the google vision api and checkout labels for each image to start.
 
 

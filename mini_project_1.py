@@ -71,13 +71,26 @@ for pic_url in tweets_with_pics:
 #Return back to the working directory
 os.chdir("..")
 
-#Convert images to video here
 
-#Skip the images to video section for now. 
 #Add the google vision api and checkout labels for each image to start.
 
 # Instantiates a client
 client = vision.ImageAnnotatorClient()
+
+#Loop through this whole section and print out the labels of each picture.
+
+#Get all of the files in the twitter image folder.
+image_files = os.listdir('./twitter_images')
+
+#make sure we only have relevent file extensions for images
+final_image_list=[]
+for image_file in image_files:
+	if image_file.endswith('.jpg') or image_file.endswith('.png'):
+		final_image_list.append(image_file)
+	else:
+		continue
+print(final_image_list)
+
 
 # The name of the image file to annotate
 file_name = os.path.join(
@@ -97,6 +110,10 @@ labels = response.label_annotations
 print('Labels:')
 for label in labels:
     print(label.description)
+
+#Convert images to video here
+
+
 
 
 

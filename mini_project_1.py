@@ -1,9 +1,9 @@
 #Copyright Emily Stern, emistern@bu.edu
 
 #This script will download images from a given twitter handle 
-#and then create a video made up of all of the images.
-#It will then use googles video cloud thing to give a 
-#tag to each image.
+#and It will then use googles cloud vision to give a 
+#tag to each image. then it will create a video made up of all of the images.
+#Asks for user input of twitter handle. Downloads images for the first 40 tweets.
 
 
 #Import tweepy libraries need to interface with twitter API 

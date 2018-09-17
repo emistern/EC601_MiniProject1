@@ -47,7 +47,7 @@ while valid_name == False:
 	    continue
 
 #Last 10 tweets from the given username
-new_tweets = api.user_timeline(screen_name = username,count=20)
+new_tweets = api.user_timeline(screen_name = username,count=30)
 
 #Move all of the tweets with images to a new list.
 tweets_with_pics = []
@@ -122,7 +122,7 @@ for image in final_image_list:
 #Convert images to video here
 
 #Change the name of all of the files to be image_#.extension 
-count=1
+count=0
 for image_name in final_image_list:
 	if count<10:
 		my_count = '0'+str(count)
@@ -133,10 +133,8 @@ for image_name in final_image_list:
 	count+=1
 	os.rename('./twitter_images/'+image_name, './twitter_images/'+new_name)
 os.chdir('./twitter_images')
+
 #Convert images to video
-os.system('ffmpeg -r 1 -f image2 -start_number 01 -i image_%02d.jpg ../my_movie.mov')
-
-
-
+os.system('ffmpeg -r 1 -f image2 -s 1920x1080 -i image_%02d.jpg ../my_movie.mov')
 
 

@@ -47,7 +47,7 @@ while valid_name == False:
 	    continue
 
 #Last 10 tweets from the given username
-new_tweets = api.user_timeline(screen_name = username,count=10)
+new_tweets = api.user_timeline(screen_name = username,count=20)
 
 #Move all of the tweets with images to a new list.
 tweets_with_pics = []
@@ -93,30 +93,30 @@ for image_file in image_files:
 
 #print(final_image_list)
 
-#Nloop through each image in the list above and get the labels
+#loop through each image in the list above and get the labels
 #for each image
-# image_label_list=[]
-# for image in final_image_list:
-# 	image_label_list.append(image)
-# 	# The name of the image file to annotate
-# 	file_name = os.path.join(
-# 	    os.path.dirname(__file__), './twitter_images/' + image)
-# 	    #'./twitter_images/IMG_20180810_175529.jpg')
+image_label_list=[]
+for image in final_image_list:
+	image_label_list.append(image)
+	# The name of the image file to annotate
+	file_name = os.path.join(
+	    os.path.dirname(__file__), './twitter_images/' + image)
+	    #'./twitter_images/IMG_20180810_175529.jpg')
 
-# 	# Loads the image into memory
-# 	with io.open(file_name, 'rb') as image_file:
-# 	    content = image_file.read()
+	# Loads the image into memory
+	with io.open(file_name, 'rb') as image_file:
+	    content = image_file.read()
 
-# 	image = types.Image(content=content)
+	image = types.Image(content=content)
 
-# 	# Performs label detection on the image file
-# 	response = client.label_detection(image=image)
-# 	labels = response.label_annotations
+	# Performs label detection on the image file
+	response = client.label_detection(image=image)
+	labels = response.label_annotations
 
-# 	print('Labels:')
-# 	for label in labels:
-# 	    print(label.description)
-# 	    image_label_list.append(label.description)
+	print('Labels:')
+	for label in labels:
+	    print(label.description)
+	    image_label_list.append(label.description)
 
 
 #Convert images to video here

@@ -124,10 +124,18 @@ for image_file in image_files:
 #Change the name of all of the files to be image_#.extension 
 count=1
 for image_name in final_image_list:
-	new_name = 'image_'+str(count) +image_name[-4:]
+	if count<10:
+		my_count = '0'+str(count)
+	else:
+		my_count = str(count)
+	new_name = 'image_'+my_count +image_name[-4:]
 	print(new_name)
 	count+=1
 	os.rename('./twitter_images/'+image_name, './twitter_images/'+new_name)
+os.chdir('./twitter_images')
+#Convert images to video
+os.system('ffmpeg -r 1 -f image2 -start_number 01 -i image_%02d.jpg ../my_movie.mov')
+
 
 
 
